@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cradle Ceremony Invitation</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-cream: #faf7f2;
+      --card-white: #ffffff;
+      --text-dark: #2c2523;
+      --text-muted: #6e645f;
+      --gold-accent: #c49a45;
+      --gold-light: #f4ece1;
+      --pink-soft: #fbf0ec;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-cream);
+      color: var(--text-dark);
+      font-family: 'Montserrat', sans-serif;
+      text-align: center;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* TYPOGRAPHY */
+    h1, h2, h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      color: var(--text-dark);
+      letter-spacing: 0.5px;
+    }
+
+    .small-title, .section-label {
+      font-size: 0.75rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--gold-accent);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    /* SCREEN 1: OPENING SCREEN */
+    #openingScreen {
+      position: fixed;
+      inset: 0;
+      background: #faf7f2 radial-gradient(circle at center, #ffffff 0%, #faf7f2 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+      z-index: 9999;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+
+    #openingScreen.hide {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .flowers {
+      font-size: 2.8rem;
+      margin-bottom: 12px;
+      animation: gentle-pulse 2s infinite ease-in-out;
+    }
+
+    @keyframes gentle-pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    #openingScreen h1 {
+      font-size: 2.5rem;
+      margin: 8px 0 14px;
+    }
+
+    .invite-text {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      max-width: 320px;
+      margin-bottom: 24px;
+    }
+
+    .open-button {
+      padding: 14px 28px;
+      background-color: var(--text-dark);
+      color: #ffffff;
+      border: 1px solid var(--text-dark);
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .open-button:hover {
+      background-color: var(--gold-accent);
+      border-color: var(--gold-accent);
+      transform: translateY(-2px);
+    }
+
+    .invited-by-pill {
+      margin-top: 30px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      border-top: 1px solid #e8e0d5;
+      padding-top: 12px;
+      width: 260px;
+    }
+
+    /* MAIN CONTENT */
+    main#invitation {
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 40px 16px 60px;
+    }
+
+    section {
+      background: var(--card-white);
+      border-radius: 20px;
+      padding: 36px 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(196, 154, 69, 0.15);
+    }
+
+    /* HERO SECTION */
+    .hero h1 {
+      font-size: 2.2rem;
+      line-height: 1.2;
+      margin: 10px 0;
+    }
+
+    .hero .parentage {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-style: italic;
+      color: var(--gold-accent);
+      margin-bottom: 12px;
+    }
+
+    .hero .date {
+      font-size: 1.05rem;
+      letter-spacing: 3px;
+      font-weight: 500;
+      color: var(--text-dark);
+      margin: 12px 0 16px;
+    }
+
+    /* VIDEO CONTAINER */
+    .video-container {
+      margin-top: 18px;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #000;
+      aspect-ratio: 16 / 9;
+      position: relative;
+    }
+
+    .video-container video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* EVENT CARD */
+    .event {
+      margin-top: 18px;
+      padding: 24px 18px;
+      background: var(--pink-soft);
+      border-radius: 14px;
+      border: 1px solid rgba(196, 154, 69, 0.2);
+    }
+
+    .event-icon {
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+    }
+
+    .event h3 {
+      font-size: 1.4rem;
+      margin-bottom: 6px;
+    }
+
+    .event p {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    /* BUTTONS */
+    .button {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 12px 24px;
+      background: var(--text-dark);
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      border-radius: 25px;
+      transition: all 0.2s ease;
+    }
+
+    .button:hover {
+      background: var(--gold-accent);
+    }
+
+    .button.whatsapp {
+      background: #25d366;
+    }
+
+    .button.whatsapp:hover {
+      background: #1ebc59;
+    }
+
+    footer {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      padding: 10px 0 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- OPENING SCREEN -->
+  <div id="openingScreen">
+    <div class="flowers">🌸</div>
+    <p class="small-title">WELCOME OUR LITTLE BLESSING</p>
+    <h1>Cradle Ceremony</h1>
+    <p class="invite-text">
+      Join us as we celebrate the naming and cradle ceremony of our baby princess.
+    </p>
+
+    <button onclick="openInvitation()" class="open-button">
+      💌 OPEN INVITATION
+    </button>
+
+    <div class="invited-by-pill">
+      Invited with love by<br>
+      <strong style="color: var(--text-dark);">Narendrula Vani & Srinivas</strong>
+    </div>
+  </div>
+
+  <!-- MAIN INVITATION -->
+  <main id="invitation">
+
+    <!-- HERO -->
+    <section class="hero">
+      <p class="small-title">NAMING & CRADLE CEREMONY</p>
+      <h1>Little Princess</h1>
+      <p class="parentage">Daughter of Navubothu Shravya & Naresh</p>
+      
+      <p class="date">09 • 09 • 2026</p>
+
+      <p style="color: var(--text-muted); font-size: 0.95rem;">
+        With the love and blessings of our families, we invite you to join us on this special day.
+      </p>
+    </section>
+
+    <!-- VIDEO -->
+    <section>
+      <p class="section-label">OUR INVITATION</p>
+      <h2>Special Moments</h2>
+      <img src="baby-photo.jpg" alt="Invitation Photo" class="invite-image">
+      <style>
+      .invite-image {
+        max-width: 90%;       /* fits neatly on screens */
+        width: 450px;         /* sets a clean, readable card width */
+        height: auto;
+        border-radius: 12px;
+        display: block;
+        margin: 20px auto;    /* centers it with breathing room */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+        </style>
+      <div class="video-container">
+        <!-- Replace invite.mp4 with your video file name or public link -->
+        <video id="myVideo" controls autoplay muted playsinline preload="auto" style="max-width: 90%; width: 450px; display: block; margin: 0 auto; border-radius: 12px;">
+        <source src="invite.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+  Your browser does not support the video tag.
+        </video>
+      </div>
+    </section>
+
+    <!-- EVENT DETAILS -->
+    <section>
+      <p class="section-label">CEREMONY PARTICULARS</p>
+      <h2>Join The Celebration</h2>
+
+      <div class="event">
+        <div class="event-icon">🌸</div>
+        <h3>CRADLE & NAMING CEREMONY</h3>
+        <p><strong>Date:</strong> wednesday, 9th November 2026</p>
+        <p><strong>Time:</strong> 10:30 AM onwards</p>
+        <p style="margin-bottom: 12px;"><strong>Followed by:</strong> Festive Lunch</p>
+        
+        <p>
+          <strong>Venue:</strong><br>
+          <!-- Update your venue name and address below -->
+          Aryavysya sangam,<br>
+          Station Road, Kamareddy
+        </p>
+
+        <!-- Replace destination link with your Google Maps link -->
+       
+      </div>
+    </section>
+
+    <!-- RSVP -->
+    <section class="rsvp">
+      <p class="section-label">RSVP</p>
+      <h2>Will You Join Us?</h2>
+      <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 6px;">
+        Your presence and blessings will make this day truly memorable for our family.
+      </p>
+
+      <!-- Replace 919999999999 with your WhatsApp number -->
+
+    </section>
+
+    <!-- CONTACT / FOOTER -->
+    <section>
+      <h2>We Can't Wait To See You ❤️</h2>
+      <p style="color: var(--text-muted); font-size: 0.95rem; margin: 8px 0 14px;">
+        Cordially invited by:<br>
+        <strong style="color: var(--text-dark);">Narendrula Vani & Srinivas</strong>
+      </p>
+
+      <!-- Replace with your contact phone number -->
+    
+    </section>
+
+    <footer>
+      <p>Made with ❤️ for our little princess</p>
+    </footer>
+
+  </main>
+
+  <script>
+    function openInvitation() {
+      // 1. Hide the opening screen
+      var screen = document.getElementById('openingScreen');
+      screen.classList.add('hide');
+
+      // 2. Play the video right after user click (avoids browser autoplay blocking)
+      var vid = document.getElementById('myVideo');
+      if (vid) {
+        vid.play().catch(function(err) {
+          console.log("Autoplay was prevented by device policies:", err);
+        });
+      }
+    }
+  </script>
+
+</body>
+</html>
